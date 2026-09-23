@@ -45,6 +45,7 @@ export type AIDiagnosticCode =
   | 'validation_missing_date'
   | 'validation_missing_calendar_disclaimer'
   | 'validation_missing_booking_disclaimer'
+  | 'validation_model_availability_claim'
   | 'validation_missing_price'
   | 'validation_missing_budget'
   | 'validation_missing_format'
