@@ -27,6 +27,33 @@ export type ResultCard = {
   synthetic: boolean; priceImputed: boolean; cityImputed: boolean;
   explanation: string; explanationSource: 'llm' | 'deterministic_fallback'; evidence: Evidence;
 };
+export type AIDiagnosticCode =
+  | 'disabled'
+  | 'llm_ok'
+  | 'provider_http_error'
+  | 'provider_timeout'
+  | 'provider_network_error'
+  | 'provider_response_too_large'
+  | 'provider_invalid_json'
+  | 'provider_response_schema'
+  | 'provider_incomplete'
+  | 'model_content_invalid_json'
+  | 'validation_response_schema'
+  | 'validation_count_mismatch'
+  | 'validation_id_order_mismatch'
+  | 'validation_sentence_count'
+  | 'validation_missing_date'
+  | 'validation_missing_calendar_disclaimer'
+  | 'validation_missing_booking_disclaimer'
+  | 'validation_missing_price'
+  | 'validation_missing_budget'
+  | 'validation_missing_format'
+  | 'validation_missing_language'
+  | 'validation_missing_duration'
+  | 'validation_missing_max_hours'
+  | 'validation_unsupported_number'
+  | 'validation_unsafe_claim'
+  | 'validation_duplicate_explanation';
 export type MatchResponse = {
   status: 'matched' | 'no_category_in_city' | 'no_eligible_candidates';
   message: string; results: ResultCard[];
@@ -35,5 +62,5 @@ export type MatchResponse = {
     excludedByReason: Record<Reason, number>; primaryExclusion: Record<Reason, number>;
     exclusionCountsCanOverlap: true; calendarNote: string;
   };
-  ai: { mode: 'llm' | 'deterministic_fallback'; reason: string };
+  ai: { mode: 'llm' | 'deterministic_fallback'; reason: string; code: AIDiagnosticCode };
 };

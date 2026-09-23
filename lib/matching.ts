@@ -44,6 +44,6 @@ export function matchAndRank(profiles: Contractor[], q: MatchRequest): MatchResp
     diagnostics: { cityCategoryCount: candidates.length, eligibleBeforeTop3: eligible.length, displayedCount: selected.length,
       busyOnDateCount: excludedByReason.busy_date, excludedByReason, primaryExclusion, exclusionCountsCanOverlap: true,
       calendarNote: `На ${q.eventDate} исключено по календарю: ${excludedByReason.busy_date} из ${candidates.length} профилей города и категории.` },
-    ai: { mode: 'deterministic_fallback', reason: 'AI отключён или не настроен; объяснения сформированы по данным каталога.' },
+    ai: { mode: 'deterministic_fallback', reason: 'AI отключён или не настроен; объяснения сформированы по данным каталога.', code: 'disabled' },
   };
 }
