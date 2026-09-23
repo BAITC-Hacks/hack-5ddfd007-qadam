@@ -7,9 +7,9 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
-    "test": "vitest run",
+    "test": "node --env-file-if-exists=.env.local node_modules/vitest/vitest.mjs run",
     "typecheck": "tsc --noEmit",
-    "validate:data": "tsx scripts/validate-dataset.ts",
+    "validate:data": "tsx --env-file-if-exists=.env.local scripts/validate-dataset.ts",
     "test:e2e": "playwright test",
     "verify:ai": "tsx --env-file-if-exists=.env.local scripts/verify-ai.ts"
   },
@@ -25,6 +25,7 @@
     "zod": "4.6.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "26.6.2",

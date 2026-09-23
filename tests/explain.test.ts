@@ -44,3 +44,11 @@ it('never calls the model for zero results', async () => {
   await explain(matchAndRank(loadContractors(), DEMOS.empty), DEMOS.empty, config, fetcher);
   expect(fetcher).not.toHaveBeenCalled();
 });
+it('invalid provider URL falls back instead of breaking matching or leaking a key', () => {
+  vi.stubEnv('AI_PROVIDER', 'nvidia'); vi.stubEnv('AI_VERIFIED', 'true');
+  vi.stubEnv('NVIDIA_API_KEY', 'test-only-secret'); vi.stubEnv('NVIDIA_MODEL', 'test-only-model');
+  for (const url of ['not a URL', 'https://example.com/v1', 'https://api.openai.com/v1', 'https://integrate.api.nvidia.com:1234/v1']) {
+    vi.stubEnv('NVIDIA_BASE_URL', url);
+    expect(aiConfig()).toBeNull();
+  }
+});

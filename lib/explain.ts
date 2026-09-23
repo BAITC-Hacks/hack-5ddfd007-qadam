@@ -10,9 +10,12 @@ export function aiConfig(requireVerification = true): AIConfig | null {
   if (!key || !model) return null;
   // Restrict destination so a config typo cannot transmit API keys to arbitrary hosts.
   const base = provider === 'openai' ? 'https://api.openai.com/v1' : process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1';
-  const url = new URL(`${base.replace(/\/$/, '')}/chat/completions`);
-  if (url.protocol !== 'https:' || !['api.openai.com', 'integrate.api.nvidia.com'].includes(url.hostname) || url.username || url.password) return null;
-  return { provider, key, model, url: url.toString() };
+  try {
+    const url = new URL(`${base.replace(/\/$/, '')}/chat/completions`);
+    const expectedHost = provider === 'openai' ? 'api.openai.com' : 'integrate.api.nvidia.com';
+    if (url.protocol !== 'https:' || url.hostname !== expectedHost || url.username || url.password || url.port || url.search || url.hash) return null;
+    return { provider, key, model, url: url.toString() };
+  } catch { return null; }
 }
 const system = `You write brief factual Russian explanations for an event-contractor recommendation app.
 You receive a FIXED ORDERED list of anonymized contractor IDs, a request, and vetted evidence. You do NOT select or rank.

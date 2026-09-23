@@ -15,7 +15,8 @@ All timestamps below are actual local time (UTC+5). No organizer reporting form 
 - Live provider verification: NOT RUN, no API keys configured. Provider behavior tested with mocks only. Participant manual verification: NOT YET.
 - UI drafts are intentionally excluded from the Milestone 1 commit. A local production build with those drafts passed; it emitted a filesystem tracing warning that remains to resolve before final verification.
 - Dataset and .env.local are ignored. Redistribution remains unclarified; judges need organizer-approved access to the original file.
-- Push/PR/merge/deployment: not performed. Await explicit push approval after showing the local checkpoint commit.
+- Local checkpoint commit created at 13:57:13: `f43ced72b52037c4f76fbd2885e137031c59e9e6`.
+- User explicitly approved this checkpoint push. At 13:59:05, `git push origin f43ced72b52037c4f76fbd2885e137031c59e9e6:refs/heads/main` succeeded; `git ls-remote` confirmed the identical SHA on official main. No PR, merge or deployment occurred. No UI files or CSV were included.
 
 ## Original-data setup for this checkpoint
 
@@ -30,3 +31,21 @@ npm test
 ```
 
 The UI and browser verification are the next milestone, not part of this core checkpoint.
+
+## Milestone 2 — 2026-09-23 14:10 UTC+5
+
+- Implemented Russian responsive form/cards, all three statuses, validation/loading/error/retry states, imputation/synthetic chips, explanation-source labels, calendar and overlapping diagnostics, six demo scenarios, and four-step explanation of the pipeline.
+- Matching/filtering/ranking code (`lib/matching.ts`, `lib/schema.ts`, `lib/evidence.ts`) is unchanged from approved checkpoint f43ced7. Infrastructure changes: explicitly exclude local CSV from automatic file tracing, pin Turbopack workspace root, load .env.local in validation/tests, reject malformed or mismatched AI endpoint configuration with fallback.
+- Added README launch/data/AI/API/licensing documentation, `.nvmrc`, and `docs/DEMO.md`. No site template, external images, webfonts, booking flow or separate service.
+- Core/API tests: **44 passed / 4 files** at 14:03:55; includes new malformed-provider-URL regression test. TypeScript: PASS. Production build: PASS, no remaining build warnings after local-file tracing/workspace fixes.
+- Real Chromium 153.0.8010.12 (Playwright 1.63.0): **4 browser suites passed in 6.2s** after fixes. Desktop 1440px, mobile 390px. Six scenario checks, exact IDs, calendar change, repeat ordering, fallback labels, date error, network failure/retry, no horizontal overflow, and CSV/.env HTTP 404.
+- Dense browser output: `[HK-88430, HK-29829, HK-27222]`; 4 eligible / 10 local-category profiles, 4 busy exclusions. Sparse: `[HK-39372]`, 1 of 2 busy. Photographer sets: 3 on Oct 10, 2 on Oct 11 as specified. No desktop page JavaScript errors were captured.
+- Accessibility: axe-core automated WCAG 2/2.1 A/AA scan reports **zero detected violations** at both widths. This is not a claim of complete accessibility certification or manual assistive-technology testing.
+- Failures encountered and resolved: first browser test used an incorrect whitespace-sensitive heading selector; mobile test initially matched Next.js route-announcer as well as the intended alert. Test selectors corrected, matching logic unchanged. Accessibility audit found insufficient contrast in secondary labels: darkened labels and enlarged small form/disclosure/explanation text, reran successfully.
+- Screenshots generated and visually inspected: `artifacts/desktop-dense.png`, `desktop-sparse.png`, `desktop-empty.png`, `desktop-date-change.png`, `mobile-dense.png`. They are ignored/local, not pushed. HTML browser report: `playwright-report/index.html`.
+- Fresh-directory reproduction at `.verification/repro-20260923-1405`: `npm ci` PASS (88 packages, 0 audit findings), original CSV validation PASS, 44 tests PASS, production build PASS. Final copied UI/config build PASS without workspace-root warning. Independent `npm start -- --port 3100`: home HTTP 200 and dense API returned `matched`, exact same 3 ordered IDs, 4 eligible, 4 busy, `deterministic_fallback` at 14:09:34.
+- Initial npm install/ci printed an esbuild install-script approval advisory; tsx/Vitest/build executed successfully. Playwright printed a NO_COLOR/FORCE_COLOR environment warning; tests passed.
+- SHA-256 of source CSV remains unchanged. Public client chunks contain no API-key environment identifiers or raw CSV marker checked. `.env.example` contains placeholders only. Index is empty; no data or credentials staged.
+- Live AI: **NOT VERIFIED / unavailable**, no key. `npm run verify:ai` explicitly exited 1 without a provider call. Mocked provider tests are not represented as live evidence. Participant manual verification remains **NOT YET**.
+- Official main remains `f43ced72b52037c4f76fbd2885e137031c59e9e6` (approved first checkpoint). UI/documentation/hardening remain local and uncommitted. No additional push, PR, merge, deployment or submission performed.
+- Local review server: http://127.0.0.1:3000. Remaining external blockers: organizer-approved CSV distribution/judge access, submission/reporting procedure, and optional live provider credentials. No known failing automated test at this checkpoint.
