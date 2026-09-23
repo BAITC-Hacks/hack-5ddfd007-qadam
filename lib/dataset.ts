@@ -46,9 +46,9 @@ export function parseDataset(source: string): Contractor[] {
 }
 let cache: { key: string; profiles: Contractor[] } | undefined;
 export function loadContractors(): Contractor[] {
-  // Local runtime input, deliberately excluded from automatic deployment tracing.
-  // Judges must supply the original CSV separately; see README for DATASET_PATH.
-  const path = resolve(/* turbopackIgnore: true */ process.cwd(), process.env.DATASET_PATH || 'hackathon dataset anonymized.csv');
+  // Runtime input is deliberately excluded from automatic deployment tracing.
+  // The local evaluation checkpoint includes the original CSV; publication remains gated by organizer permission.
+  const path = resolve(/* turbopackIgnore: true */ process.cwd(), process.env.DATASET_PATH || 'data/hackathon-dataset-anonymized.csv');
   try {
     const stat = statSync(path);
     const key = `${path}:${stat.mtimeMs}:${stat.ctimeMs}:${stat.size}`;

@@ -4,7 +4,7 @@ All timestamps below are actual local time (UTC+5). No organizer reporting form 
 
 ## Milestone 1 — 2026-09-23 13:56 UTC+5
 
-- Official clone: `D:\PROJECTSSS\hack-5ddfd007-qadam`, branch `main`, starting revision `e225a68`.
+- Official clone: repository workspace, branch `main`, starting revision `e225a68`.
 - GitHub read-only checks: authenticated account `mrchles`, repository permission WRITE, default branch main. Main branch endpoint returned protected=false. Rulesets endpoint returned 403; this is inconclusive for rulesets.
 - No AGENTS.md, contribution instructions, workflow, license, data redistribution policy or submission procedure found in local/remote repository. The remote contained README.md only.
 - Original CSV validated in place, unchanged: 66 records, 13 headers, 17 categories; 50 Алматы, 15 Астана, 1 Зарубежье; 13 synthetic, 18 price-imputed, 8 city-imputed, 9 null max_hours.
@@ -58,3 +58,15 @@ The UI and browser verification are the next milestone, not part of this core ch
 - Live verification #2, after that fix: exactly one `gpt-4o-mini` call, HTTP 200, 4.80 s provider / 4.83 s total, under 10 s. It reached `validation_sentence_count`; fallback preserved ordered IDs `HK-88430`, `HK-29829`, `HK-27222`, prices and availability. No retry occurred. Genuine AI explanations therefore remain **not yet verified**.
 - Offline inspection confirmed `Intl.Segmenter('ru')` keeps `5 ч. при лимите 6 ч.` within the intended sentence and rejects a genuine three-sentence mock. Since the live response text was deliberately not retained, its wording cannot be reconstructed; the safe diagnostic indicates more than two observed sentence segments. The prompt now requests exactly one concise sentence while runtime acceptance remains one or two. No explanation is truncated.
 - This checkpoint contains no `.env.local`, key, CSV, generated artifact or live response body. A further paid verification requires explicit approval.
+
+## Independent-evaluation dataset checkpoint — 2026-09-23 15:32 UTC+5
+
+- Rechecked official `BAITC-Hacks/hack-5ddfd007-qadam`: no license, dataset terms, workflow, issue, contribution guide or separate track instruction was present. GitHub organization code searches for `79-lite` and `Smart Contractor Matching` returned no official material. General web search did not identify an authoritative HackAlem redistribution policy. Dataset publication permission therefore remains **unconfirmed**.
+- Copied the participant-supplied organizer dataset to `data/hackathon-dataset-anonymized.csv`. Source, working copy, staged Git blob and fresh-clone checkout are all 97,988 bytes with SHA-256 `6a724b6b7dfb5973343e68ba18dadb60fc807d87e3d78f03ee86fb26cb089f7d`. `.gitattributes` disables text normalization for this exact path.
+- `.gitignore` continues to exclude all CSV files except that exact evaluation path. The root source CSV remains ignored. `.env.local`, credentials, node_modules, builds, reports, screenshots and verification directories remain excluded.
+- Dataset scan: 66 rows, 13 expected columns; no contact columns, email addresses, URLs or phone-number patterns detected. It contains only `anon_name`, not a raw `name` field. This automated pattern scan does not establish legal redistribution rights.
+- README now documents HackAlem provenance, every column, synthetic/imputed flags, calendar semantics, full installation/testing/production commands, credential-free fallback, requirements and current limits of genuine AI wording, and optional PostgreSQL strictly as a future proposal.
+- Created a temporary Git snapshot of the staged tree and cloned it with `--no-hardlinks` into an ignored verification directory. Copied only `.env.example` to `.env.local`: `AI_PROVIDER=none`, no API key, `AI_VERIFIED=false`, bundled data path.
+- Fresh clone results: `npm ci` PASS (88 packages, 0 audit findings; esbuild install-script advisory only); dataset validation PASS; 48 tests PASS; TypeScript PASS; production build PASS; Playwright/Chromium 4 suites PASS in 8.7 s, including six matching scenarios and accessibility audit. Browser tests used the production server and confirmed CSV and `.env.local` return HTTP 404.
+- No PostgreSQL, ORM, database migration, matching change or AI logic change was introduced. No external AI request, push, deployment or publication occurred.
+- This checkpoint must remain local until the user separately approves a push and confirms the organizer permits redistribution of the dataset.

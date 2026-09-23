@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, expect, it, vi } from 'vitest';
 import { loadContractors, parseDataset } from '../lib/dataset';
-const source = readFileSync(process.env.DATASET_PATH || 'hackathon dataset anonymized.csv', 'utf8');
+const source = readFileSync(process.env.DATASET_PATH || 'data/hackathon-dataset-anonymized.csv', 'utf8');
 afterEach(() => vi.unstubAllEnvs());
 it('parses original RFC4180 CSV and preserves descriptions containing commas', () => {
   const p = parseDataset(source);

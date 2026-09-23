@@ -1,0 +1,2 @@
+# Preserve the organizer-provided dataset byte-for-byte across platforms.
+data/hackathon-dataset-anonymized.csv -text
