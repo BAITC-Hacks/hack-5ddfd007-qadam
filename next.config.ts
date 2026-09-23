@@ -1,6 +1,10 @@
 import type { NextConfig } from 'next';
 const config: NextConfig = {
   turbopack: { root: process.cwd() },
+  outputFileTracingIncludes: {
+    '/': ['./data/hackathon-dataset-anonymized.csv'],
+    '/api/recommend': ['./data/hackathon-dataset-anonymized.csv'],
+  },
   poweredByHeader: false,
   async headers() {
     return [{ source: '/:path*', headers: [
